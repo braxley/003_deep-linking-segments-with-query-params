@@ -19,16 +19,26 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from "vue";
+import { computed, ref, watch } from "vue";
+import { useRoute, useRouter } from "vue-router";
 import { IonPage, IonContent, IonSegment, IonSegmentButton } from "@ionic/vue";
 import {
   userPageSegmentRegistry,
   type UserPageSegmentRegistryType,
 } from "@/views/UserPage/user-page-segment.registry.ts";
 
-const activeSegment = ref<UserPageSegmentRegistryType>("page-a");
+const route = useRoute();
+const router = useRouter();
+
+const activeSegment = ref(
+  (route.query.segment as UserSegmentRegistryType) || "page-a"
+);
 
 const currentPage = computed(
   () => userPageSegmentRegistry[activeSegment.value].component
 );
+
+watch(activeSegment, (newSegment) => {
+  router.replace({ query: { segment: newSegment } });
+});
 </script>
