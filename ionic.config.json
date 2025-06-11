@@ -1,0 +1,7 @@
+{
+  "name": "001a_segment-with-dynamic-component_ionic",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue-vite"
+}
